@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>SENA · Sistematización Contratación de Instructores</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --sena-green: #39A900;
+    --sena-green-dark: #2D7A00;
+    --sena-green-light: #7ED957;
+    --sena-green-glow: rgba(57,169,0,0.15);
+    --sena-white: #F5F9F3;
+    --sena-gray: #8A9C84;
+    --sena-dark: #0F1410;
+    --sena-card: rgba(26,32,28,0.95);
+    --sena-border: rgba(57,169,0,0.2);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--sena-dark);
+    color: var(--sena-white);
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
+
+  .section {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 80px 5%;
+  }
+
+  /* ===== TIPOGRAFÍA ===== */
+  .section-eyebrow {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--sena-green-light);
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .section-eyebrow::before {
+    content: '';
+    width: 32px; height: 2px;
+    background: var(--sena-green);
+    flex-shrink: 0;
+  }
+  .section-eyebrow.center { justify-content: center; }
+  .section-eyebrow.center::before { display: none; }
+
+  h1 {
+    font-size: clamp(2.8rem, 6vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    margin-bottom: 24px;
+  }
+  h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-bottom: 24px;
+  }
+  h4 { font-size: 1rem; font-weight: 600; margin-bottom: 4px; }
+
+  .section-body {
+    font-size: 1rem;
+    color: #B0C4AB;
+    line-height: 1.7;
+    max-width: 500px;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    overflow: hidden;
+    background: radial-gradient(ellipse 100% 70% at 0% 100%, rgba(57,169,0,0.07) 0%, transparent 55%), var(--sena-dark);
+  }
+  .hero-bg-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(57,169,0,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(57,169,0,0.035) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse 65% 65% at 25% 50%, black 10%, transparent 75%);
+  }
+  .hero-content { position: relative; z-index: 2; max-width: 700px; padding: 0 24px; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: rgba(57,169,0,0.1); border: 1px solid var(--sena-border);
+    padding: 8px 20px; border-radius: 40px; margin-bottom: 32px;
+    font-size: 0.8rem; font-weight: 500; color: var(--sena-green-light);
+  }
+  .hero-highlight {
+    color: transparent;
+    background: linear-gradient(135deg, var(--sena-green-light) 0%, var(--sena-green) 100%);
+    -webkit-background-clip: text; background-clip: text;
+  }
+  .hero-desc { font-size: 1.1rem; color: #C0D4BC; line-height: 1.7; margin-bottom: 32px; max-width: 540px; }
+  .team-pills { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 24px; }
+  .pill {
+    background: rgba(57,169,0,0.1); border: 1px solid var(--sena-border);
+    padding: 6px 18px; border-radius: 30px;
+    font-size: 0.8rem; font-weight: 500; color: var(--sena-green-light);
+  }
+  .hero-meta { font-size: 0.75rem; color: var(--sena-gray); letter-spacing: 0.05em; }
+  .scroll-indicator {
+    position: absolute; bottom: 32px; right: 32px;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    font-size: 0.7rem; color: var(--sena-gray); letter-spacing: 0.1em;
+    text-transform: uppercase; z-index: 3;
+  }
+  .scroll-line {
+    width: 1px; height: 50px;
+    background: linear-gradient(var(--sena-green), transparent);
+    animation: scrollPulse 2s ease infinite;
+  }
+  @keyframes scrollPulse { 0%,100%{opacity:.3;} 50%{opacity:1;} }
+
+  /* ===== PAIN ITEMS (usados en Introducción y Justificación) ===== */
+  .two-col-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 60px; align-items: start;
+    max-width: 1200px; margin: 0 auto; width: 100%;
+  }
+  .two-col-grid.center-v { align-items: center; }
+  .pain-list { display: flex; flex-direction: column; gap: 16px; }
+  .pain-item {
+    display: flex; align-items: flex-start; gap: 16px;
+    padding: 20px;
+    background: rgba(255,255,255,0.02);
+    border-radius: 16px; border: 1px solid rgba(255,255,255,0.05);
+    transition: all 0.3s;
+  }
+  .pain-item:hover { border-color: var(--sena-border); background: var(--sena-green-glow); }
+  .pain-icon {
+    width: 40px; height: 40px; min-width: 40px; border-radius: 12px;
+    background: rgba(57,169,0,0.12);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; color: var(--sena-green-light); flex-shrink: 0;
+  }
+  .pain-item h4 { color: var(--sena-white); font-size: 1rem; }
+  .pain-item p { font-size: 0.85rem; color: var(--sena-gray); line-height: 1.5; }
+
+  /* ===== OBJETIVOS ===== */
+  .obj-box {
+    padding: 28px;
+    background: rgba(255,255,255,0.025);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 20px;
+  }
+  .obj-label {
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--sena-green);
+    margin-bottom: 10px; display: flex; align-items: center; gap: 8px;
+  }
+  .obj-box > p { font-size: 0.95rem; color: var(--sena-white); line-height: 1.7; margin-bottom: 20px; }
+  .obj-box ol { font-size: 0.9rem; color: #C0D4BC; line-height: 1.9; padding-left: 18px; }
+  .obj-box ol li { margin-bottom: 8px; }
+
+  /* ===== ARQUITECTURA ===== */
+  .arch-layers { max-width: 800px; margin: 48px auto 0; }
+  .arch-item {
+    display: flex; align-items: center; gap: 24px;
+    padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .arch-label {
+    width: 120px; min-width: 120px; font-weight: 700;
+    font-size: 0.75rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--sena-gray);
+  }
+  .arch-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    padding: 6px 14px; border-radius: 6px;
+    font-size: 0.75rem; font-weight: 600;
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+  }
+  .chip-backend  { border-color: rgba(255,120,0,.3); color: #FFB570; }
+  .chip-frontend { border-color: rgba(57,120,220,.3); color: #7AB0FF; }
+  .chip-db       { border-color: rgba(200,100,200,.3); color: #E0A0E0; }
+  .chip-auth     { border-color: rgba(57,169,0,.3); color: var(--sena-green-light); }
+  .chip-ia       { border-color: rgba(200,255,0,.3); color: #E0FF80; }
+  .chip-mail     { border-color: rgba(255,200,0,.3); color: #FFE085; }
+
+  /* ===== COMPARATIVO ===== */
+  .comparativo-container { max-width: 1200px; margin: 0 auto; width: 100%; }
+  .comparativo-grid {
+    display: grid; grid-template-columns: 1fr auto 1fr;
+    gap: 32px; margin-top: 48px;
+  }
+  .flow-column {
+    background: var(--sena-card); border-radius: 20px;
+    overflow: hidden; border: 1px solid var(--sena-border);
+  }
+  .flow-header {
+    padding: 16px 20px; font-weight: 700; font-size: 0.8rem;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    text-align: center; display: flex; align-items: center;
+    justify-content: center; gap: 8px;
+  }
+  .flow-header.antes {
+    background: rgba(220,50,50,0.15); color: #FF8A8A;
+    border-bottom: 1px solid rgba(220,50,50,0.3);
+  }
+  .flow-header.despues {
+    background: rgba(57,169,0,0.15); color: var(--sena-green-light);
+    border-bottom: 1px solid var(--sena-border);
+  }
+  .flow-step {
+    display: flex; align-items: center; gap: 14px;
+    padding: 12px 20px; border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .step-number {
+    width: 28px; height: 28px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem; font-weight: 700; flex-shrink: 0;
+  }
+  .antes .step-number { background: rgba(220,50,50,0.2); color: #FF8A8A; }
+  .despues .step-number { background: rgba(57,169,0,0.2); color: var(--sena-green-light); }
+  .step-text { font-size: 0.85rem; flex: 1; color: #C8D8C4; }
+  .step-badge {
+    font-size: 0.65rem; padding: 3px 8px;
+    border-radius: 20px; font-weight: 600; letter-spacing: 0.05em; white-space: nowrap;
+  }
+  .badge-slow { background: rgba(220,50,50,0.15); color: #FF8A8A; }
+  .badge-fast { background: rgba(57,169,0,0.15); color: var(--sena-green-light); }
+  .badge-auto { background: rgba(200,255,0,0.12); color: #E0FF80; }
+  .vs-divider {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 16px;
+  }
+  .vs-circle {
+    width: 50px; height: 50px; border-radius: 50%;
+    background: var(--sena-dark); border: 2px solid var(--sena-green);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 0.8rem; color: var(--sena-green);
+  }
+
+  /* ===== ROLES ===== */
+  .roles-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 32px; margin-top: 48px;
+  }
+  .role-card { border-radius: 24px; padding: 32px; }
+  .role-card.admin {
+    background: linear-gradient(135deg, rgba(57,169,0,0.08), rgba(57,169,0,0.02));
+    border: 1px solid rgba(57,169,0,0.3);
+  }
+  .role-card.aspirante {
+    background: linear-gradient(135deg, rgba(57,100,220,0.08), rgba(57,100,220,0.02));
+    border: 1px solid rgba(57,100,220,0.3);
+  }
+  .role-title {
+    font-size: 1.5rem; font-weight: 800; margin-bottom: 8px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .role-title-icon {
+    width: 36px; height: 36px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; flex-shrink: 0;
+  }
+  .admin .role-title-icon { background: rgba(57,169,0,0.15); color: var(--sena-green-light); }
+  .aspirante .role-title-icon { background: rgba(57,100,220,0.15); color: #7AB0FF; }
+  .role-subtitle { font-size: 0.85rem; color: var(--sena-gray); margin-bottom: 24px; }
+  .role-actions { list-style: none; }
+  .role-actions li {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 0; font-size: 0.9rem; color: #C0D4BC;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .role-actions li:last-child { border-bottom: none; }
+  .li-icon { font-size: 16px; flex-shrink: 0; }
+  .admin .li-icon { color: var(--sena-green); }
+  .aspirante .li-icon { color: #7AB0FF; }
+
+  /* ===== IMPACTO ===== */
+  .impact-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 24px; margin: 48px 0;
+  }
+  .impact-card {
+    text-align: center; padding: 32px;
+    background: rgba(57,169,0,0.03); border-radius: 20px;
+    border: 1px solid var(--sena-border);
+  }
+  .impact-number { font-size: 3rem; font-weight: 800; color: var(--sena-green-light); line-height: 1; margin-bottom: 8px; }
+  .impact-label { font-size: 0.85rem; color: var(--sena-gray); }
+  .footer-credits {
+    border-top: 1px solid var(--sena-border); padding-top: 32px;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 16px; margin-top: 32px;
+  }
+
+  /* ===== NAVEGACIÓN ===== */
+  .side-nav {
+    position: fixed; right: 24px; top: 50%; transform: translateY(-50%);
+    z-index: 100; display: flex; flex-direction: column; gap: 12px;
+  }
+  .nav-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: rgba(255,255,255,0.2); cursor: pointer;
+    transition: all 0.3s ease; position: relative;
+  }
+  .nav-dot:hover, .nav-dot.active { background: var(--sena-green); transform: scale(1.4); }
+  .nav-dot .tooltip {
+    position: absolute; right: 20px; top: 50%; transform: translateY(-50%);
+    background: var(--sena-dark); border: 1px solid var(--sena-border);
+    color: var(--sena-white); font-size: 0.7rem; font-weight: 600;
+    padding: 4px 12px; border-radius: 6px; white-space: nowrap;
+    opacity: 0; pointer-events: none; transition: opacity 0.2s;
+  }
+  .nav-dot:hover .tooltip { opacity: 1; }
+
+  /* ===== ANIMACIONES ===== */
+  .animate {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .animate.visible { opacity: 1; transform: translateY(0); }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 960px) {
+    .two-col-grid { grid-template-columns: 1fr; gap: 40px; }
+    .comparativo-grid { grid-template-columns: 1fr; gap: 24px; }
+    .vs-divider { flex-direction: row; padding: 20px 0; }
+    .arch-item { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .arch-label { width: auto; min-width: unset; }
+  }
+  @media (max-width: 640px) {
+    .section { padding: 60px 5%; }
+    h1 { font-size: clamp(2rem, 9vw, 2.8rem); }
+    h2 { font-size: 1.8rem; }
+    .side-nav { display: none; }
+    .roles-grid { grid-template-columns: 1fr; }
+    .footer-credits { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVEGACIÓN -->
+<nav class="side-nav">
+  <div class="nav-dot active" data-target="hero"><span class="tooltip">Inicio</span></div>
+  <div class="nav-dot" data-target="introduccion"><span class="tooltip">Introducción</span></div>
+  <div class="nav-dot" data-target="justificacion"><span class="tooltip">Justificación</span></div>
+  <div class="nav-dot" data-target="objetivo"><span class="tooltip">Objetivos</span></div>
+  <div class="nav-dot" data-target="arquitectura"><span class="tooltip">Arquitectura</span></div>
+  <div class="nav-dot" data-target="comparativo"><span class="tooltip">Comparativa</span></div>
+  <div class="nav-dot" data-target="roles"><span class="tooltip">Roles</span></div>
+  <div class="nav-dot" data-target="impacto"><span class="tooltip">Impacto</span></div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section id="hero" class="section hero">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-content">
+    <h1 class="animate">
+      Sistematización de<br>
+      <span class="hero-highlight">Contratación</span><br>
+      de Instructores
+    </h1>
+    <p class="hero-desc animate">
+      Plataforma web para digitalizar, centralizar y agilizar el proceso de vinculación de instructores en el SENA Regional Caldas.
+    </p>
+    <div class="team-pills animate">
+      <span class="pill">Luis Miguel Loaiza</span>
+      <span class="pill">María Fernanda García</span>
+      <span class="pill">Luis Fernando Cardona</span>
+      <span class="pill">Salomé Ramírez</span>
+    </div>
+    <p class="hero-meta animate">TECNÓLOGO EN ANÁLISIS Y DESARROLLO DE SOFTWARE · FICHA 3063934 · 2026</p>
+  </div>
+</section>
+
+<!-- ===== INTRODUCCIÓN ===== -->
+<section id="introduccion" class="section">
+  <div class="two-col-grid center-v">
+    <div>
+      <div class="section-eyebrow animate">Introducción</div>
+      <h2 class="animate">El proceso actual es <span style="color:#FF8A8A">lento, tedioso<br>y propenso a errores</span></h2>
+      <p class="section-body animate">
+        La contratación de instructores en el SENA se realiza de forma completamente manual: papeles físicos, correos sin estructura, seguimiento imposible y pérdida frecuente de documentos. Esto genera demoras que afectan directamente la operación académica.
+      </p>
+    </div>
+    <div class="pain-list">
+      <div class="pain-item animate">
+        <div class="pain-icon"><i class="ph-bold ph-file-text"></i></div>
+        <div><h4>Documentación en papel</h4><p>Hasta 23 documentos recopilados físicamente, sin trazabilidad ni orden definido.</p></div>
+      </div>
+      <div class="pain-item animate">
+        <div class="pain-icon"><i class="ph-bold ph-hourglass-medium"></i></div>
+        <div><h4>Tiempos de espera indefinidos</h4><p>Sin seguimiento en tiempo real, el aspirante no sabe en qué paso está ni qué hace falta.</p></div>
+      </div>
+      <div class="pain-item animate">
+        <div class="pain-icon"><i class="ph-bold ph-x-circle"></i></div>
+        <div><h4>Errores frecuentes de validación</h4><p>Documentos rechazados por errores evitables al no haber validación previa automatizada.</p></div>
+      </div>
+      <div class="pain-item animate">
+        <div class="pain-icon"><i class="ph-bold ph-folders"></i></div>
+        <div><h4>Información dispersa</h4><p>Datos de aspirantes repartidos en correos, carpetas físicas y hojas de cálculo sin unificar.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== JUSTIFICACIÓN ===== -->
+<section id="justificacion" class="section">
+  <div class="two-col-grid center-v">
+    <div>
+      <div class="section-eyebrow animate">Justificación</div>
+      <h2 class="animate">¿Por qué era necesario <span style="color:var(--sena-green-light)">construirlo?</span></h2>
+      <p class="section-body animate">La ausencia de un sistema digital genera consecuencias directas que afectan tanto a los aspirantes como a la operación del SENA. Las demoras retrasan el inicio de clases y elevan la carga administrativa.</p>
+    </div>
+    <div class="pain-list">
+      <div class="pain-item animate">
+        <div class="pain-icon"><i class="ph-bold ph-map-pin"></i></div>
+        <div><h4>Desplazamientos innecesarios</h4><p>Los aspirantes se presentan físicamente a la sede para entregar documentos que podrían gestionarse en línea.</p></div>
+      </div>
+      <div class="pain-item animate">
+        <div class="pain-icon"><i class="ph-bold ph-arrows-clockwise"></i></div>
+        <div><h4>Reenvíos repetidos</h4><p>Sin guía clara, los aspirantes reenvían documentos múltiples veces sin saber qué hace falta corregir.</p></div>
+      </div>
+      <div class="pain-item animate">
+        <div class="pain-icon"><i class="ph-bold ph-eye-slash"></i></div>
+        <div><h4>Sin visibilidad del proceso</h4><p>Ni el aspirante ni el administrativo saben con certeza en qué etapa está la solicitud.</p></div>
+      </div>
+      <div class="pain-item animate">
+        <div class="pain-icon"><i class="ph-bold ph-warning-circle"></i></div>
+        <div><h4>Errores evitables</h4><p>Una validación automatizada habría detectado a tiempo los fallos que generan rechazos tardíos.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== OBJETIVOS ===== -->
+<section id="objetivo" class="section">
+  <div class="two-col-grid center-v">
+    <div>
+      <div class="section-eyebrow animate">Objetivos</div>
+      <h2 class="animate">Qué buscamos <span style="color:var(--sena-green-light)">lograr</span></h2>
+      <p class="section-body animate">Cuatro pilares guían el desarrollo: digitalización, visibilidad en tiempo real, asistencia inteligente y seguridad robusta.</p>
+    </div>
+    <div class="obj-box animate">
+      <div class="obj-label"><i class="ph-bold ph-target"></i> Objetivo General</div>
+      <p>Desarrollar una plataforma web que sistematice el proceso de contratación de instructores en el SENA Regional Caldas, reduciendo tiempos y eliminando procedimientos manuales.</p>
+      <div class="obj-label" style="margin-top:4px;"><i class="ph-bold ph-list-checks"></i> Específicos</div>
+      <ol>
+        <li>Gestión digital de los 23 requisitos desde cualquier dispositivo</li>
+        <li>Panel administrativo con KPIs y trazabilidad en tiempo real</li>
+        <li>Chatbot con IA (Groq / Llama 3.1) para orientación 24/7</li>
+        <li>Seguridad por roles, CAPTCHA y auditoría completa del sistema</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ARQUITECTURA ===== -->
+<section id="arquitectura" class="section">
+  <div style="max-width:900px;margin:0 auto;width:100%;">
+    <div style="text-align:center;">
+      <div class="section-eyebrow center animate">Stack Tecnológico</div>
+      <h2 class="animate">Arquitectura del <span style="color:var(--sena-green-light)">sistema</span></h2>
+      <p class="section-body animate" style="margin:0 auto;">Construido sobre tecnologías modernas, robustas y de bajo costo operativo.</p>
+    </div>
+    <div class="arch-layers">
+      <div class="arch-item animate">
+        <div class="arch-label">Backend</div>
+        <div class="arch-chips">
+          <span class="chip chip-backend">Laravel 12</span>
+          <span class="chip chip-backend">PHP 8.2</span>
+          <span class="chip chip-backend">Eloquent ORM</span>
+          <span class="chip chip-backend">Middleware por rol</span>
+        </div>
+      </div>
+      <div class="arch-item animate">
+        <div class="arch-label">Frontend</div>
+        <div class="arch-chips">
+          <span class="chip chip-frontend">Blade Templates</span>
+          <span class="chip chip-frontend">CSS moderno</span>
+          <span class="chip chip-frontend">Phosphor Icons</span>
+          <span class="chip chip-frontend">SweetAlert2</span>
+        </div>
+      </div>
+      <div class="arch-item animate">
+        <div class="arch-label">Base de datos</div>
+        <div class="arch-chips">
+          <span class="chip chip-db">MySQL</span>
+          <span class="chip chip-db">11 tablas clave</span>
+          <span class="chip chip-db">Auditoría completa</span>
+        </div>
+      </div>
+      <div class="arch-item animate">
+        <div class="arch-label">Seguridad</div>
+        <div class="arch-chips">
+          <span class="chip chip-auth">Roles ADMIN / ASPIRANTE</span>
+          <span class="chip chip-auth">CAPTCHA</span>
+          <span class="chip chip-auth">Bloqueo por intentos</span>
+          <span class="chip chip-auth">Registro de IPs</span>
+        </div>
+      </div>
+      <div class="arch-item animate">
+        <div class="arch-label">IA &amp; Chat</div>
+        <div class="arch-chips">
+          <span class="chip chip-ia">Groq API</span>
+          <span class="chip chip-ia">Llama 3.1 8B</span>
+          <span class="chip chip-ia">Contexto dinámico</span>
+        </div>
+      </div>
+      <div class="arch-item animate">
+        <div class="arch-label">Notificaciones</div>
+        <div class="arch-chips">
+          <span class="chip chip-mail">SMTP Gmail</span>
+          <span class="chip chip-mail">Notificaciones en app</span>
+          <span class="chip chip-mail">Recuperación contraseña</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== COMPARATIVO ===== -->
+<section id="comparativo" class="section">
+  <div class="comparativo-container">
+    <div style="text-align:center;">
+      <div class="section-eyebrow center animate">Flujo Comparativo</div>
+      <h2 class="animate">Antes <span style="color:var(--sena-gray)">vs</span> <span style="color:var(--sena-green-light)">Con el sistema</span></h2>
+      <p class="section-body animate" style="margin:0 auto;">El mismo proceso · resultados completamente distintos</p>
+    </div>
+    <div class="comparativo-grid">
+      <div class="flow-column antes animate">
+        <div class="flow-header antes">
+          <i class="ph-bold ph-x-circle"></i> Proceso Manual · Antes
+        </div>
+        <div class="flow-step"><div class="step-number">1</div><span class="step-text">Aspirante recibe lista de documentos por correo o presencial</span><span class="step-badge badge-slow">lento</span></div>
+        <div class="flow-step"><div class="step-number">2</div><span class="step-text">Recopila cada documento físico o digital sin guía clara</span><span class="step-badge badge-slow">sin guía</span></div>
+        <div class="flow-step"><div class="step-number">3</div><span class="step-text">Entrega carpeta física o envía correo con archivos adjuntos</span><span class="step-badge badge-slow">manual</span></div>
+        <div class="flow-step"><div class="step-number">4</div><span class="step-text">Administrativo revisa manualmente cada documento uno por uno</span><span class="step-badge badge-slow">días</span></div>
+        <div class="flow-step"><div class="step-number">5</div><span class="step-text">Si hay error, se notifica por correo o llamada; el aspirante repite todo</span><span class="step-badge badge-slow">reproceso</span></div>
+        <div class="flow-step"><div class="step-number">6</div><span class="step-text">Sin trazabilidad: no se sabe en qué etapa está el proceso</span><span class="step-badge badge-slow">opaco</span></div>
+        <div class="flow-step"><div class="step-number">7</div><span class="step-text">Archivo físico guardado en carpetas, difícil de consultar</span><span class="step-badge badge-slow">pérdida</span></div>
+        <div class="flow-step"><div class="step-number">8</div><span class="step-text">Vinculación del instructor: semanas después del inicio</span><span class="step-badge badge-slow">semanas</span></div>
+      </div>
+      <div class="vs-divider">
+        <div class="vs-circle">VS</div>
+      </div>
+      <div class="flow-column despues animate">
+        <div class="flow-header despues">
+          <i class="ph-bold ph-check-circle"></i> Con el Sistema · Ahora
+        </div>
+        <div class="flow-step"><div class="step-number">1</div><span class="step-text">Administrador crea cuenta del aspirante en el sistema</span><span class="step-badge badge-auto">automatizado</span></div>
+        <div class="flow-step"><div class="step-number">2</div><span class="step-text">Aspirante inicia sesión y ve lista ordenada de 23 requisitos con enlaces</span><span class="step-badge badge-fast">guiado</span></div>
+        <div class="flow-step"><div class="step-number">3</div><span class="step-text">Sube documentos con vista previa desde PC o cámara</span><span class="step-badge badge-fast">fácil</span></div>
+        <div class="flow-step"><div class="step-number">4</div><span class="step-text">Chatbot IA resuelve dudas en tiempo real con guía personalizada</span><span class="step-badge badge-auto">IA 24/7</span></div>
+        <div class="flow-step"><div class="step-number">5</div><span class="step-text">Administrador revisa desde el dashboard y valida con observaciones</span><span class="step-badge badge-fast">ágil</span></div>
+        <div class="flow-step"><div class="step-number">6</div><span class="step-text">Aspirante recibe notificación por correo al instante</span><span class="step-badge badge-auto">inmediato</span></div>
+        <div class="flow-step"><div class="step-number">7</div><span class="step-text">Estado del proceso visible en tiempo real para ambas partes</span><span class="step-badge badge-fast">trazable</span></div>
+        <div class="flow-step"><div class="step-number">8</div><span class="step-text">Descarga ZIP final — proceso completo en días</span><span class="step-badge badge-auto">días</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ROLES ===== -->
+<section id="roles" class="section">
+  <div style="max-width:1100px;margin:0 auto;width:100%;">
+    <div style="text-align:center;">
+      <div class="section-eyebrow center animate">Usuarios del Sistema</div>
+      <h2 class="animate">Dos roles, <span style="color:var(--sena-green-light)">una sola plataforma</span></h2>
+      <p class="section-body animate" style="margin:0 auto;">Cada actor tiene un panel adaptado a sus necesidades y responsabilidades dentro del proceso de contratación.</p>
+    </div>
+    <div class="roles-grid">
+      <div class="role-card admin animate">
+        <div class="role-title">
+          <div class="role-title-icon"><i class="ph-bold ph-wrench"></i></div>
+          Administrador
+        </div>
+        <div class="role-subtitle">Control total del proceso de contratación</div>
+        <ul class="role-actions">
+          <li><i class="ph-bold ph-chart-bar li-icon"></i> Dashboard con KPIs y alertas en tiempo real</li>
+          <li><i class="ph-bold ph-user-plus li-icon"></i> Crear y gestionar cuentas de aspirantes</li>
+          <li><i class="ph-bold ph-magnifying-glass li-icon"></i> Revisar y validar documentos cargados</li>
+          <li><i class="ph-bold ph-check-square li-icon"></i> Aprobar o rechazar con observaciones</li>
+          <li><i class="ph-bold ph-sliders li-icon"></i> Gestionar requisitos y documentos requeridos</li>
+          <li><i class="ph-bold ph-clock-clockwise li-icon"></i> Consultar historial de auditoría completo</li>
+        </ul>
+      </div>
+      <div class="role-card aspirante animate">
+        <div class="role-title">
+          <div class="role-title-icon"><i class="ph-bold ph-user"></i></div>
+          Aspirante
+        </div>
+        <div class="role-subtitle">Seguimiento personal del proceso</div>
+        <ul class="role-actions">
+          <li><i class="ph-bold ph-list-numbers li-icon"></i> Ver lista ordenada de requisitos con enlaces</li>
+          <li><i class="ph-bold ph-upload-simple li-icon"></i> Cargar documentos con vista previa</li>
+          <li><i class="ph-bold ph-activity li-icon"></i> Seguimiento del estado en tiempo real</li>
+          <li><i class="ph-bold ph-envelope li-icon"></i> Recibir notificaciones por correo al instante</li>
+          <li><i class="ph-bold ph-chat-circle-dots li-icon"></i> Consultar chatbot IA para resolver dudas</li>
+          <li><i class="ph-bold ph-download-simple li-icon"></i> Descargar ZIP final con todos los documentos</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== IMPACTO ===== -->
+<section id="impacto" class="section">
+  <div style="max-width:900px;margin:0 auto;width:100%;text-align:center;">
+    <div class="section-eyebrow center animate">Impacto del Proyecto</div>
+    <h2 class="animate">Un proceso más<br><span style="color:var(--sena-green-light)">ágil, trazable</span><br>y humano</h2>
+    <p class="section-body animate" style="margin:0 auto;">La plataforma no solo digitaliza documentos — transforma la experiencia de los aspirantes y devuelve tiempo valioso a los administrativos del SENA Regional Caldas.</p>
+    <div class="impact-grid">
+      <div class="impact-card animate">
+        <div class="impact-number">23</div>
+        <div class="impact-label">documentos gestionados digitalmente en un solo flujo</div>
+      </div>
+      <div class="impact-card animate">
+        <div class="impact-number">2</div>
+        <div class="impact-label">roles diferenciados con paneles adaptados a cada actor</div>
+      </div>
+      <div class="impact-card animate">
+        <div class="impact-number">8</div>
+        <div class="impact-label">módulos funcionales sobre Laravel 12 con IA integrada</div>
+      </div>
+    </div>
+    <div class="footer-credits animate">
+      <div style="font-size:0.8rem;color:var(--sena-gray);text-align:left;">
+        Tecnólogo en Análisis y Desarrollo de Software<br>
+        Ficha 3063934 · SENA Regional Caldas · 2026<br>
+        Director: José Germán Estrada Clavijo
+      </div>
+      <div style="font-size:1.5rem;font-weight:800;color:var(--sena-green);">SENA</div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const sections = document.querySelectorAll('.section');
+  const dots = document.querySelectorAll('.nav-dot');
+
+  dots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      const target = document.getElementById(dot.dataset.target);
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting)
+        dots.forEach(d => d.classList.toggle('active', d.dataset.target === e.target.id));
+    });
+  }, { threshold: 0.4 });
+
+  sections.forEach(s => observer.observe(s));
+
+  const animateObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        animateObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.animate').forEach(el => animateObserver.observe(el));
+</script>
+</body>
+</html>
