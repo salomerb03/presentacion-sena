@@ -205,6 +205,10 @@
         <div class="chatbot-feature"><i class="ph-bold ph-file-magnifying-glass"></i> Guía sobre requisitos</div>
         <div class="chatbot-feature"><i class="ph-bold ph-lightbulb"></i> Respuestas claras y contextualizadas</div>
       </div>
+      <button class="chat-demo-trigger animate" type="button" id="startChatDemo">
+        <i class="ph-bold ph-play"></i>
+        Iniciar demo
+      </button>
     </div>
 
     <div class="chat-demo animate" aria-label="Demo visual del chatbot">
@@ -220,6 +224,10 @@
       </div>
 
       <div class="chat-demo-body">
+        <div class="chat-demo-empty">
+          <i class="ph-bold ph-chat-circle-dots"></i>
+          <span>Demo lista para iniciar</span>
+        </div>
         <div class="chat-message user-message chat-step" style="--delay: 0.2s">
           <div class="message-label">Aspirante</div>
           <p>Hola, ¿qué documentos me faltan para continuar?</p>
@@ -395,6 +403,18 @@
   }, { threshold: 0.15 });
 
   document.querySelectorAll('.animate').forEach(el => animateObserver.observe(el));
+
+  const startChatDemo = document.getElementById('startChatDemo');
+  const chatDemo = document.querySelector('.chat-demo');
+
+  if (startChatDemo && chatDemo) {
+    startChatDemo.addEventListener('click', () => {
+      chatDemo.classList.remove('chat-demo-playing');
+      void chatDemo.offsetWidth;
+      chatDemo.classList.add('chat-demo-playing');
+      startChatDemo.innerHTML = '<i class="ph-bold ph-arrows-clockwise"></i> Reiniciar demo';
+    });
+  }
 </script>
 </body>
 </html>
