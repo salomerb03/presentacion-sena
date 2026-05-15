@@ -16,9 +16,10 @@
   <div class="nav-dot" data-target="introduccion"><span class="tooltip">Introducción</span></div>
   <div class="nav-dot" data-target="justificacion"><span class="tooltip">Justificación</span></div>
   <div class="nav-dot" data-target="objetivo"><span class="tooltip">Objetivos</span></div>
-  <div class="nav-dot" data-target="arquitectura"><span class="tooltip">Arquitectura</span></div>
   <div class="nav-dot" data-target="comparativo"><span class="tooltip">Comparativa</span></div>
+  <div class="nav-dot" data-target="chatbot"><span class="tooltip">Chatbot</span></div>
   <div class="nav-dot" data-target="roles"><span class="tooltip">Roles</span></div>
+  <div class="nav-dot" data-target="arquitectura"><span class="tooltip">Arquitectura</span></div>
   <div class="nav-dot" data-target="impacto"><span class="tooltip">Impacto</span></div>
 </nav>
 
@@ -190,6 +191,85 @@
   </div>
 </section>
 
+<!-- ===== CHATBOT DEMO ===== -->
+<section id="chatbot" class="section chatbot-section">
+  <div class="two-col-grid center-v">
+    <div>
+      <div class="section-eyebrow animate">Funcionalidad IA</div>
+      <h2 class="animate">Chatbot demo para <span class="text-accent">orientar al aspirante</span></h2>
+      <p class="section-body animate">
+        Esta vista muestra cómo el sistema responde preguntas frecuentes del proceso sin que el usuario tenga que esperar una llamada o un correo. Es una demostración visual: el usuario inicia la demo y los mensajes aparecen en secuencia.
+      </p>
+      <div class="chatbot-features animate">
+        <div class="chatbot-feature"><i class="ph-bold ph-clock"></i> Atención 24/7</div>
+        <div class="chatbot-feature"><i class="ph-bold ph-file-magnifying-glass"></i> Guía sobre requisitos</div>
+        <div class="chatbot-feature"><i class="ph-bold ph-lightbulb"></i> Respuestas claras y contextualizadas</div>
+      </div>
+      <button class="chat-demo-trigger animate" type="button" data-chat-demo-trigger>
+        <i class="ph-bold ph-play"></i>
+        Iniciar demo
+      </button>
+    </div>
+
+    <div class="chat-demo animate" aria-label="Demo visual del chatbot">
+      <div class="chat-demo-topbar">
+        <div class="chat-demo-agent">
+          <div class="chat-demo-avatar"><i class="ph-bold ph-robot"></i></div>
+          <div>
+            <div class="chat-demo-title">Asistente SENA</div>
+            <div class="chat-demo-status"><span></span> Demo automática</div>
+          </div>
+        </div>
+        <div class="chat-demo-badge">IA</div>
+      </div>
+
+      <div class="chat-demo-body">
+        <div class="chat-demo-empty">
+          <i class="ph-bold ph-chat-circle-dots"></i>
+          <span>Demo lista para iniciar</span>
+          <button class="chat-demo-trigger chat-demo-trigger-inline" type="button" data-chat-demo-trigger>
+            <i class="ph-bold ph-play"></i>
+            Iniciar demo
+          </button>
+        </div>
+
+        <div class="chat-message user-message chat-step" style="--delay: 0.2s" hidden>
+          <div class="message-label">Aspirante</div>
+          <p>Hola, ¿qué documentos me faltan para continuar?</p>
+        </div>
+
+        <div class="chat-typing chat-step" style="--delay: 1.5s" hidden>
+          <span></span><span></span><span></span>
+        </div>
+
+        <div class="chat-message bot-message chat-step" style="--delay: 2.5s" hidden>
+          <div class="message-label">Asistente IA</div>
+          <p>Te faltan la cédula ampliada al 150%, el RUT actualizado y el certificado de experiencia laboral. Los demás requisitos ya están cargados.</p>
+        </div>
+
+        <div class="chat-message user-message chat-step" style="--delay: 4.5s" hidden>
+          <div class="message-label">Aspirante</div>
+          <p>¿Y dónde puedo ver si un documento fue rechazado?</p>
+        </div>
+
+        <div class="chat-typing chat-step" style="--delay: 5.8s" hidden>
+          <span></span><span></span><span></span>
+        </div>
+
+        <div class="chat-message bot-message chat-step" style="--delay: 6.8s" hidden>
+          <div class="message-label">Asistente IA</div>
+          <p>En tu panel verás cada requisito con su estado: pendiente, en revisión, aprobado o rechazado. Si fue rechazado, aparecerá la observación para que puedas corregirlo y volverlo a cargar.</p>
+        </div>
+
+        <div class="chat-message user-message chat-step" style="--delay: 8.8s" hidden>
+          <div class="message-label">Aspirante</div>
+          <p>Perfecto, subiré esos documentos y revisaré el estado en mi panel.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ===== COMPARATIVO ===== -->
 <section id="comparativo" class="section">
   <div class="comparativo-container">
@@ -278,6 +358,17 @@
 </section>
 
 <script>
+  const objetivoSection = document.getElementById('objetivo');
+  const comparativoSection = document.getElementById('comparativo');
+  const arquitecturaSection = document.getElementById('arquitectura');
+  const impactoSection = document.getElementById('impacto');
+
+  if (objetivoSection && comparativoSection)
+    objetivoSection.insertAdjacentElement('afterend', comparativoSection);
+
+  if (arquitecturaSection && impactoSection)
+    impactoSection.insertAdjacentElement('beforebegin', arquitecturaSection);
+
   const sections = document.querySelectorAll('.section');
   const dots = document.querySelectorAll('.nav-dot');
 
@@ -307,6 +398,41 @@
   }, { threshold: 0.15 });
 
   document.querySelectorAll('.animate').forEach(el => animateObserver.observe(el));
+
+  const startChatDemoButtons = document.querySelectorAll('[data-chat-demo-trigger]');
+  const chatDemo = document.querySelector('.chat-demo');
+  const chatDemoEmpty = document.querySelector('.chat-demo-empty');
+  const chatSteps = document.querySelectorAll('.chat-step');
+  const chatTypingSteps = document.querySelectorAll('.chat-typing');
+  let chatDemoTimers = [];
+
+  if (startChatDemoButtons.length && chatDemo) {
+    startChatDemoButtons.forEach(button => button.addEventListener('click', () => {
+      chatDemoTimers.forEach(timer => clearTimeout(timer));
+      chatDemoTimers = [];
+      chatDemo.classList.remove('chat-demo-playing');
+      chatSteps.forEach(step => step.hidden = true);
+      if (chatDemoEmpty) chatDemoEmpty.hidden = false;
+
+      void chatDemo.offsetWidth;
+
+      if (chatDemoEmpty) chatDemoEmpty.hidden = true;
+      chatSteps.forEach(step => step.hidden = false);
+      chatDemo.classList.add('chat-demo-playing');
+      startChatDemoButtons.forEach(item => {
+        item.innerHTML = '<i class="ph-bold ph-arrows-clockwise"></i> Reiniciar demo';
+      });
+
+      chatTypingSteps.forEach(typing => {
+        const delay = parseFloat(getComputedStyle(typing).getPropertyValue('--delay')) || 0;
+        const timer = setTimeout(() => {
+          typing.hidden = true;
+        }, (delay * 1000) + 900);
+
+        chatDemoTimers.push(timer);
+      });
+    }));
+  }
 </script>
 </body>
 </html>
