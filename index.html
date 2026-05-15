@@ -17,6 +17,7 @@
   <div class="nav-dot" data-target="justificacion"><span class="tooltip">Justificación</span></div>
   <div class="nav-dot" data-target="objetivo"><span class="tooltip">Objetivos</span></div>
   <div class="nav-dot" data-target="arquitectura"><span class="tooltip">Arquitectura</span></div>
+  <div class="nav-dot" data-target="chatbot"><span class="tooltip">Chatbot</span></div>
   <div class="nav-dot" data-target="comparativo"><span class="tooltip">Comparativa</span></div>
   <div class="nav-dot" data-target="roles"><span class="tooltip">Roles</span></div>
   <div class="nav-dot" data-target="impacto"><span class="tooltip">Impacto</span></div>
@@ -184,6 +185,64 @@
           <span class="chip chip-mail">SMTP Gmail</span>
           <span class="chip chip-mail">Notificaciones en app</span>
           <span class="chip chip-mail">Recuperación contraseña</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CHATBOT DEMO ===== -->
+<section id="chatbot" class="section chatbot-section">
+  <div class="two-col-grid center-v">
+    <div>
+      <div class="section-eyebrow animate">Funcionalidad IA</div>
+      <h2 class="animate">Chatbot demo para <span class="text-accent">orientar al aspirante</span></h2>
+      <p class="section-body animate">
+        Esta vista muestra cómo el sistema responde preguntas frecuentes del proceso sin que el usuario tenga que esperar una llamada o un correo. Es una demostración visual: la pregunta y la respuesta aparecen automáticamente.
+      </p>
+      <div class="chatbot-features animate">
+        <div class="chatbot-feature"><i class="ph-bold ph-clock"></i> Atención 24/7</div>
+        <div class="chatbot-feature"><i class="ph-bold ph-file-magnifying-glass"></i> Guía sobre requisitos</div>
+        <div class="chatbot-feature"><i class="ph-bold ph-lightbulb"></i> Respuestas claras y contextualizadas</div>
+      </div>
+    </div>
+
+    <div class="chat-demo animate" aria-label="Demo visual del chatbot">
+      <div class="chat-demo-topbar">
+        <div class="chat-demo-agent">
+          <div class="chat-demo-avatar"><i class="ph-bold ph-robot"></i></div>
+          <div>
+            <div class="chat-demo-title">Asistente SENA</div>
+            <div class="chat-demo-status"><span></span> Demo automática</div>
+          </div>
+        </div>
+        <div class="chat-demo-badge">IA</div>
+      </div>
+
+      <div class="chat-demo-body">
+        <div class="chat-message user-message chat-step" style="--delay: 0.2s">
+          <div class="message-label">Aspirante</div>
+          <p>Hola, ¿qué documentos me faltan para continuar?</p>
+        </div>
+
+        <div class="chat-message bot-message chat-step" style="--delay: 1.8s">
+          <div class="message-label">Asistente IA</div>
+          <p>Te faltan la cédula ampliada al 150%, el RUT actualizado y el certificado de experiencia laboral. Los demás requisitos ya están cargados.</p>
+        </div>
+
+        <div class="chat-message user-message admin-message chat-step" style="--delay: 3.6s">
+          <div class="message-label">Administrador</div>
+          <p>¿El aspirante ya puede pasar a revisión documental?</p>
+        </div>
+
+        <div class="chat-message bot-message chat-step" style="--delay: 5.2s">
+          <div class="message-label">Asistente IA</div>
+          <p>Aún no. El sistema recomienda esperar a que cargue los 3 requerimientos pendientes antes de enviarlo a validación final.</p>
+        </div>
+
+        <div class="chat-message user-message chat-step" style="--delay: 7s">
+          <div class="message-label">Aspirante</div>
+          <p>Perfecto, subiré esos documentos y revisaré el estado en mi panel.</p>
         </div>
       </div>
     </div>
