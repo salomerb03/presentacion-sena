@@ -420,9 +420,13 @@
   const chatDemo = document.querySelector('.chat-demo');
   const chatDemoEmpty = document.querySelector('.chat-demo-empty');
   const chatSteps = document.querySelectorAll('.chat-step');
+  const chatTypingSteps = document.querySelectorAll('.chat-typing');
+  let chatDemoTimers = [];
 
   if (startChatDemoButtons.length && chatDemo) {
     startChatDemoButtons.forEach(button => button.addEventListener('click', () => {
+      chatDemoTimers.forEach(timer => clearTimeout(timer));
+      chatDemoTimers = [];
       chatDemo.classList.remove('chat-demo-playing');
       chatSteps.forEach(step => step.hidden = true);
       if (chatDemoEmpty) chatDemoEmpty.hidden = false;
@@ -432,6 +436,14 @@
       chatDemo.classList.add('chat-demo-playing');
       startChatDemoButtons.forEach(item => {
         item.innerHTML = '<i class="ph-bold ph-arrows-clockwise"></i> Reiniciar demo';
+      });
+      chatTypingSteps.forEach(typing => {
+        const delay = parseFloat(getComputedStyle(typing).getPropertyValue('--delay')) || 0;
+        const timer = setTimeout(() => {
+          typing.hidden = true;
+        }, (delay * 1000) + 900);
+
+        chatDemoTimers.push(timer);
       });
     }));
   }
