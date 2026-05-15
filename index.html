@@ -205,7 +205,7 @@
         <div class="chatbot-feature"><i class="ph-bold ph-file-magnifying-glass"></i> Guía sobre requisitos</div>
         <div class="chatbot-feature"><i class="ph-bold ph-lightbulb"></i> Respuestas claras y contextualizadas</div>
       </div>
-      <button class="chat-demo-trigger animate" type="button" id="startChatDemo">
+      <button class="chat-demo-trigger animate" type="button" data-chat-demo-trigger>
         <i class="ph-bold ph-play"></i>
         Iniciar demo
       </button>
@@ -227,28 +227,40 @@
         <div class="chat-demo-empty">
           <i class="ph-bold ph-chat-circle-dots"></i>
           <span>Demo lista para iniciar</span>
+          <button class="chat-demo-trigger chat-demo-trigger-inline" type="button" data-chat-demo-trigger>
+            <i class="ph-bold ph-play"></i>
+            Iniciar demo
+          </button>
         </div>
-        <div class="chat-message user-message chat-step" style="--delay: 0.2s">
+        <div class="chat-message user-message chat-step" style="--delay: 0.2s" hidden>
           <div class="message-label">Aspirante</div>
           <p>Hola, ¿qué documentos me faltan para continuar?</p>
         </div>
 
-        <div class="chat-message bot-message chat-step" style="--delay: 1.8s">
+        <div class="chat-typing chat-step" style="--delay: 1.5s" hidden>
+          <span></span><span></span><span></span>
+        </div>
+
+        <div class="chat-message bot-message chat-step" style="--delay: 2.5s" hidden>
           <div class="message-label">Asistente IA</div>
           <p>Te faltan la cédula ampliada al 150%, el RUT actualizado y el certificado de experiencia laboral. Los demás requisitos ya están cargados.</p>
         </div>
 
-        <div class="chat-message user-message admin-message chat-step" style="--delay: 3.6s">
+        <div class="chat-message user-message admin-message chat-step" style="--delay: 4.5s" hidden>
           <div class="message-label">Administrador</div>
           <p>¿El aspirante ya puede pasar a revisión documental?</p>
         </div>
 
-        <div class="chat-message bot-message chat-step" style="--delay: 5.2s">
+        <div class="chat-typing chat-step" style="--delay: 5.8s" hidden>
+          <span></span><span></span><span></span>
+        </div>
+
+        <div class="chat-message bot-message chat-step" style="--delay: 6.8s" hidden>
           <div class="message-label">Asistente IA</div>
           <p>Aún no. El sistema recomienda esperar a que cargue los 3 requerimientos pendientes antes de enviarlo a validación final.</p>
         </div>
 
-        <div class="chat-message user-message chat-step" style="--delay: 7s">
+        <div class="chat-message user-message chat-step" style="--delay: 8.8s" hidden>
           <div class="message-label">Aspirante</div>
           <p>Perfecto, subiré esos documentos y revisaré el estado en mi panel.</p>
         </div>
@@ -404,16 +416,24 @@
 
   document.querySelectorAll('.animate').forEach(el => animateObserver.observe(el));
 
-  const startChatDemo = document.getElementById('startChatDemo');
+  const startChatDemoButtons = document.querySelectorAll('[data-chat-demo-trigger]');
   const chatDemo = document.querySelector('.chat-demo');
+  const chatDemoEmpty = document.querySelector('.chat-demo-empty');
+  const chatSteps = document.querySelectorAll('.chat-step');
 
-  if (startChatDemo && chatDemo) {
-    startChatDemo.addEventListener('click', () => {
+  if (startChatDemoButtons.length && chatDemo) {
+    startChatDemoButtons.forEach(button => button.addEventListener('click', () => {
       chatDemo.classList.remove('chat-demo-playing');
+      chatSteps.forEach(step => step.hidden = true);
+      if (chatDemoEmpty) chatDemoEmpty.hidden = false;
       void chatDemo.offsetWidth;
+      if (chatDemoEmpty) chatDemoEmpty.hidden = true;
+      chatSteps.forEach(step => step.hidden = false);
       chatDemo.classList.add('chat-demo-playing');
-      startChatDemo.innerHTML = '<i class="ph-bold ph-arrows-clockwise"></i> Reiniciar demo';
-    });
+      startChatDemoButtons.forEach(item => {
+        item.innerHTML = '<i class="ph-bold ph-arrows-clockwise"></i> Reiniciar demo';
+      });
+    }));
   }
 </script>
 </body>
