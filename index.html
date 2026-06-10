@@ -10,6 +10,10 @@
     rel="stylesheet">
   <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
   <link rel="stylesheet" href="styles.css">
+  <style>
+    .intro-container { display:flex; flex-direction:column; gap:8px; align-items:flex-start; }
+    .btn-translate { margin-top:8px; padding:6px 10px; border-radius:6px; border:1px solid #cfcfcf; background:#fff; cursor:pointer; font-weight:600; }
+  </style>
 </head>
 
 <body>
@@ -56,42 +60,67 @@
     <div class="two-col-grid center-v">
       <div>
         <div class="section-eyebrow animate">Introducción</div>
-        <h2 class="animate">
-          El proceso actual presenta <span class="text-danger">demoras, reprocesos<br>y dificultades de
-            seguimiento</span>
+        <h2>
+          Una solución para <span class="text-danger">optimizar y modernizar<br>la contratación de instructores</span>
         </h2>
-        
+
+        <div class="intro-container">
+          <p id="intro-text" class="animate" data-en="This project was born as a proposal aimed at improving and speeding up the instructor hiring process by implementing an intelligent web system that automates document validation, centralizes applicants' information, and provides real-time tracking throughout each stage of the process.">
+            Este proyecto nace como una propuesta orientada a mejorar y agilizar el proceso de contratación de
+            instructores, implementando un sistema web inteligente que permite automatizar la validación documental,
+            centralizar la información de los aspirantes y brindar seguimiento en tiempo real durante cada etapa del
+            proceso.
+          </p>
+          <button id="translate-btn" class="btn-translate" aria-pressed="false">EN</button>
+        </div>
+
       </div>
       <div class="pain-list">
+
         <div class="pain-item animate">
-          <div class="pain-icon"><i class="ph-bold ph-file-text"></i></div>
+          <div class="pain-icon">
+            <i class="ph-bold ph-upload-simple"></i>
+          </div>
           <div>
-            <h4>Documentación en carpetas ZIP</h4>
-            <p>Hasta 24 requisitos organizados manualmente en una carpeta comprimida, incluyendo soportes escaneados
-              cuando el documento nace en físico.</p>
+            <h4>Carga digital de documentos</h4>
+            <p>Los aspirantes pueden cargar sus documentos directamente desde la plataforma, eliminando el envío manual
+              de carpetas comprimidas y facilitando la gestión documental.</p>
           </div>
         </div>
+
         <div class="pain-item animate">
-          <div class="pain-icon"><i class="ph-bold ph-hourglass-medium"></i></div>
+          <div class="pain-icon">
+            <i class="ph-bold ph-check-circle"></i>
+          </div>
           <div>
-            <h4>Tiempos de espera indefinidos</h4>
-            <p>Sin seguimiento en tiempo real, el aspirante no sabe en qué paso está ni qué hace falta.</p>
+            <h4>Validación y seguimiento en tiempo real</h4>
+            <p>El sistema permite conocer el estado de cada requisito, mostrando documentos aprobados, rechazados o
+              pendientes durante todo el proceso.</p>
           </div>
         </div>
+
         <div class="pain-item animate">
-          <div class="pain-icon"><i class="ph-bold ph-x-circle"></i></div>
+          <div class="pain-icon">
+            <i class="ph-bold ph-bell"></i>
+          </div>
           <div>
-            <h4>Errores frecuentes de validación</h4>
-            <p>Documentos rechazados por errores evitables al no haber validación previa automatizada.</p>
+            <h4>Notificaciones automáticas</h4>
+            <p>Los usuarios reciben alertas y observaciones cuando un documento requiere corrección o cuando se produce
+              un cambio importante en su proceso.</p>
           </div>
         </div>
+
         <div class="pain-item animate">
-          <div class="pain-icon"><i class="ph-bold ph-folders"></i></div>
+          <div class="pain-icon">
+            <i class="ph-bold ph-database"></i>
+          </div>
           <div>
-            <h4>Información dispersa</h4>
-            <p>Datos de aspirantes repartidos en correos, carpetas ZIP y hojas de cálculo sin unificar.</p>
+            <h4>Información centralizada y segura</h4>
+            <p>Todos los documentos, validaciones y registros se almacenan en una única plataforma, garantizando
+              trazabilidad, control y acceso organizado a la información.</p>
           </div>
         </div>
+
       </div>
     </div>
   </section>
@@ -185,61 +214,61 @@
   <!-- ===== METODOLOGÍA ===== -->
 
   <section id="metodologia" class="section">
-  <div class="section-container section-container-narrow">
-    
-    <div class="section-heading-center">
-      <div class="section-eyebrow center animate">Metodología de Desarrollo</div>
-      <h2 class="animate">Gestión y control del proyecto</h2>
-      <p class="section-body section-body-centered animate">
-        Desarrollo iterativo, trabajo colaborativo y control de versiones para garantizar calidad y trazabilidad.
-      </p>
+    <div class="section-container section-container-narrow">
+
+      <div class="section-heading-center">
+        <div class="section-eyebrow center animate">Metodología de Desarrollo</div>
+        <h2 class="animate">Gestión y control del proyecto</h2>
+        <p class="section-body section-body-centered animate">
+          Desarrollo iterativo, trabajo colaborativo y control de versiones para garantizar calidad y trazabilidad.
+        </p>
+      </div>
+
+      <div class="pain-list">
+
+        <div class="pain-item animate">
+          <div class="pain-icon">
+            <i class="ph-bold ph-git-branch"></i>
+          </div>
+          <div>
+            <h4>Control de Versiones</h4>
+            <p>Git y GitHub</p>
+          </div>
+        </div>
+
+        <div class="pain-item animate">
+          <div class="pain-icon">
+            <i class="ph-bold ph-kanban"></i>
+          </div>
+          <div>
+            <h4>Metodología Ágil</h4>
+            <p>Scrum</p>
+          </div>
+        </div>
+
+        <div class="pain-item animate">
+          <div class="pain-icon">
+            <i class="ph-bold ph-users-three"></i>
+          </div>
+          <div>
+            <h4>Trabajo Colaborativo</h4>
+            <p>Desarrollo en equipo</p>
+          </div>
+        </div>
+
+        <div class="pain-item animate">
+          <div class="pain-icon">
+            <i class="ph-bold ph-check-circle"></i>
+          </div>
+          <div>
+            <h4>Seguimiento</h4>
+            <p>Pruebas y mejora continua</p>
+          </div>
+        </div>
+
+      </div>
     </div>
-
-    <div class="pain-list">
-
-      <div class="pain-item animate">
-        <div class="pain-icon">
-          <i class="ph-bold ph-git-branch"></i>
-        </div>
-        <div>
-          <h4>Control de Versiones</h4>
-          <p>Git y GitHub</p>
-        </div>
-      </div>
-
-      <div class="pain-item animate">
-        <div class="pain-icon">
-          <i class="ph-bold ph-kanban"></i>
-        </div>
-        <div>
-          <h4>Metodología Ágil</h4>
-          <p>Scrum</p>
-        </div>
-      </div>
-
-      <div class="pain-item animate">
-        <div class="pain-icon">
-          <i class="ph-bold ph-users-three"></i>
-        </div>
-        <div>
-          <h4>Trabajo Colaborativo</h4>
-          <p>Desarrollo en equipo</p>
-        </div>
-      </div>
-
-      <div class="pain-item animate">
-        <div class="pain-icon">
-          <i class="ph-bold ph-check-circle"></i>
-        </div>
-        <div>
-          <h4>Seguimiento</h4>
-          <p>Pruebas y mejora continua</p>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
+  </section>
 
   <!-- ===== ARQUITECTURA ===== -->
   <section id="arquitectura" class="section">
@@ -448,7 +477,7 @@
       <h2 class="animate">Un proceso más<br><span class="text-accent">ágil, trazable</span><br>y humano</h2>
       <p class="section-body section-body-centered animate">La plataforma no solo digitaliza documentos — transforma la
         experiencia de los aspirantes y devuelve tiempo valioso a los administrativos del SENA Regional Caldas.</p>
-      
+
       <div class="footer-credits animate">
         <div class="footer-meta">
           Tecnólogo en Análisis y Desarrollo de Software<br>
@@ -531,6 +560,29 @@
         });
       }));
     }
+  </script>
+  <script>
+    (function () {
+      var btn = document.getElementById('translate-btn');
+      var p = document.getElementById('intro-text');
+      if (!btn || !p) return;
+      var esText = p.textContent.trim();
+      var enText = p.getAttribute('data-en');
+      var showingEN = false;
+      btn.addEventListener('click', function () {
+        if (showingEN) {
+          p.textContent = esText;
+          btn.textContent = 'EN';
+          btn.setAttribute('aria-pressed', 'false');
+          showingEN = false;
+        } else {
+          p.textContent = enText;
+          btn.textContent = 'ES';
+          btn.setAttribute('aria-pressed', 'true');
+          showingEN = true;
+        }
+      });
+    })();
   </script>
 </body>
 
